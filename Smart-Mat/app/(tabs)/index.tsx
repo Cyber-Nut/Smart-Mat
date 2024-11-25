@@ -3,6 +3,7 @@ import { View, Text, SafeAreaView, Image } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from "react";
 import Feather from '@expo/vector-icons/Feather';
+import Yoga from "./yoga";
 export default function HomeScreen(){
     const [isConnect, setIsConnect] = useState<boolean>(false);
     return(
@@ -13,6 +14,10 @@ export default function HomeScreen(){
 
             <View style={styles.matConnectContainer}>
                 <MatConnect connectStatus={isConnect}/>
+            </View>
+
+            <View style={styles.yogaSessionContainer}>
+                <RecentYogaSession/>
             </View>
             
         </SafeAreaView>
@@ -32,7 +37,6 @@ function HeaderImage({username}:{username: string}){
             </View>
             <Image style={styles.headerImage} source={require('../../assets/images/yoga background extended.jpg')}/>
             <LinearGradient
-                
                 colors={['transparent','rgba(0,0,0,1)']}
                 style={styles.gradientBottom}
             />
@@ -69,8 +73,9 @@ function MatConnect({connectStatus}:{connectStatus: boolean}){
             <View style={styles.matInfoContainer}>
 
                 <View style={styles.matStatusContainer}>
-                    
-                        <Feather name="bluetooth" size={50} color={connectColor} />
+                        <Image tintColor={connectColor} style={{height: '40%', width: '40%'}} source={require('../../assets/images/yoga-mat.png')}></Image>
+
+                        {/* <Feather name="bluetooth" size={50} color={connectColor} /> */}
                     
                         <Text style={{marginTop: 15, fontWeight: 600}}>{connectText}</Text>
                 </View>
@@ -114,6 +119,35 @@ function MatConnect({connectStatus}:{connectStatus: boolean}){
             <View style={styles.matButtonContainer}>
                 <MatButton text={buttontext}/>
                 <MatButton text='Start Yoga'/>
+            </View>
+        </View>
+    );
+}
+
+function RecentYogaSession(){
+    return(
+        <View >
+            <Text style={{textAlign: 'center', marginTop: 10, fontWeight: 800, fontSize: 20}}>Recent Yoga Session</Text>
+            <View>
+                <YogaSessionCard/>
+                <YogaSessionCard/>
+            </View>
+        </View>
+    );
+}
+
+function YogaSessionCard(){
+    return(
+        <View style={styles.sessionCard}>
+            <View style={styles.sessionCardText}>
+                <Text style={{fontSize: 20, fontWeight: 600, color: 'white', letterSpacing: 1}}>Relaxation Yoga</Text>
+                <Text style={{color: 'white'}}>Date: 2024-11-24</Text>
+                <Text style={{color: 'white'}}>Duration: 30 min</Text>
+            </View>
+            <View style={styles.sessionCardButton}>
+                <Pressable style={styles.viewDetailButton}>
+                        <Text style={{textAlign: 'center', color: 'white'}}>View Details</Text>
+                </Pressable>
             </View>
         </View>
     );
@@ -163,7 +197,7 @@ const styles = StyleSheet.create({
     },
     
     matConnectContainer:{
-        backgroundColor: 'grey',
+        backgroundColor: '#ECDFCC',
         height: '25%',
         marginHorizontal: 10,
         marginTop: 20,
@@ -190,7 +224,7 @@ const styles = StyleSheet.create({
     matModelContainer:{
         width: '50%',
         justifyContent: 'center'
-    },
+    }, 
     deviceInfo:{
         flexDirection: 'row',
         marginTop: 5
@@ -203,7 +237,7 @@ const styles = StyleSheet.create({
     },
     button: {
     width: '100%',
-    backgroundColor: '#800080',
+    backgroundColor: '#3C3D37',
     borderRadius: 20,
     borderWidth: 1,
     borderColor: 'black',
@@ -217,5 +251,43 @@ const styles = StyleSheet.create({
     // Add responsive font size or adjust as needed
     fontSize: 16,
     },
+    yogaSessionContainer:{
+        backgroundColor: '#ECDFCC',
+        height: '36.5%',
+        marginHorizontal: 10,
+        marginTop: 20,
+        borderRadius: 20,
+        elevation: 10
+    },
+    sessionCard:{
+        height:'40%',
+        marginTop: 10,
+        backgroundColor:'#3C3D37',
+        flexDirection: 'row',
+        marginHorizontal:10
+    },
+    sessionCardText:{
+        width: '50%',
+        marginVertical: '5%',
+        justifyContent: 'center',
+        marginLeft: 10
+    },
+    sessionCardButton:{
+        width: '30%',
+        marginVertical: '5%',
+        marginRight: 10,
+        justifyContent: 'center',
+        marginLeft: 30
+
+    },
+    viewDetailButton:{
+        height:'90%',
+        alignItems:'center',
+        justifyContent: 'center',
+        paddingHorizontal: 5,
+        borderWidth: 1,
+        borderRadius: 20,
+        borderColor: 'white'
+    }
     
 });
